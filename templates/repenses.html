@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Réponses</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Réponses</h1>
+        {% if reponses %}
+            <ul>
+            {% for reponse in reponses %}
+                <li>{{ reponse }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune réponse n'a été soumise pour le moment.</p>
+        {% endif %}
+        <p><a href="/">Retour à la question</a></p>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+

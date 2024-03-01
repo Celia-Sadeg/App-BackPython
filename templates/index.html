@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Création de séquence pédagogique</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  </head>
+  
+  <body style="background-color: #bab7b7;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Creations de sequences</a>
+      <a class="nav-link" href="http://localhost:5000/create_sequence">Listes des sequences </a>
+    </nav>
+
+    <div class="col-md- float-right">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <form action="http://localhost:5000/filter" method="POST">
+            <div class="form-group">
+              <label for="tagFilter">Sujet</label>
+              <input type="text" class="form-control" id="tagFilter" name="tagFilter">
+            </div>
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card bg-light p-6 mt-5">
+        <div class="card-body">
+          <h5 class="card-title">Liste des questions</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Sujet</th>
+                <th>Contenu</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for question in questions %}
+              <tr>
+                <td>{{ question.title }}</td>
+                <td>{{ question.tags }}</td>
+                <td>
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Question  : Identifiant
+                        </button>
+                      </h5>
+                    </div>
+                  
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                        Contenu de la question 
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <input type="checkbox" name="selectedQuestions" value="{{ question.id }}">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>   
+
+    <div class="row justify-content-md-center mt-4">
+      <div class="col-md-6">
+        <div class="card bg-light p-4">
+          <div class="card-header bg-secondary">
+            <h3>Création de séquence</h3>
+          </div>
+          <div class="card-body">
+            <form action="http://localhost:5000/create_sequence" method="POST">
+              <div class="form-group">
+                <label for="sequenceTitle">Titre :</label>
+                <input type="text" class="form-control" id="sequenceTitle" name="sequenceTitle">
+              </div>
+              <div class="form-group">
+                <label for="sequenceId">Identifiant :</label>
+                <input type="text" class="form-control" id="sequenceId" name="sequenceId">
+              </div>
+              <div class="form-group">
+                <label for="selectedQuestions">Questions :</label>
+                <select multiple class="form-control" id="selectedQuestions" name="selectedQuestions[]">
+                  {% for question in questions %}
+                  <option value="{{ question.id }}">{{ question.title }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Créer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </body>
+  </html>

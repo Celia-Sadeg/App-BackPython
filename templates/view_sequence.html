@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Séquence</title>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="fonction.js"></script>
+   
+  </head>
+  <body style="background-color: #bab7b7;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="http://localhost:5000/create_sequence">Afichage de la Liste des sequences </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    </nav>
+    <div class="container mt-5">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-light" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                 Identifiant: 
+              </button>
+              <button class="btn btn-secondary float-right" id="next-btn">
+                <i class="fa fa-arrow-right"></i> Next
+              </button>
+            </h5>
+          </div>
+          <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body bg-light" style="height: 100px;">
+              <i class="fas fa-info-circle"></i> <i class="fas fa-exclamation-triangle col-md-6"></i> 
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Veuillez seléctionner la bonne repense</h5>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="repense" id="rp1" value="repense_1">
+                    <label class="form-check-label" for="repense_1">
+                      choix de repense_1
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="repense" id="rp2" value="repense_2">
+                    <label class="form-check-label" for="repense_2">
+                      choix de repense_2
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="repense" id="rp3" value="repense_3">
+                    <label class="form-check-label" for="repense_3">
+                      choix de repense_3
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="repense" id="rp4" value="repense_4">
+                    <label class="form-check-label" for="repense_4">
+                      choix de repense_4
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="fonction.js"></script>
+    
+ 
+  </body>
+
+</html>

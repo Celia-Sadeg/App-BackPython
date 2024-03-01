@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">My App</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/create_sequence">Create Sequence</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sequences">Sequences</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Séquence {{ sequence.id }} - {{ sequence.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body style="background-color: #bab7b7;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="http://localhost:5000">Affichage de la sequence</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    </nav>
+    <div class="container mt-5">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-light" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                 {{ sequence.title }}
+              </button>
+              {% if sequence.questions %}
+                <button class="btn btn-secondary float-right" id="next-btn">
+                  <i class="fa fa-arrow-right"></i> Next
+                </button>
+              {% endif %}
+            </h5>
+          </div>
+          {% if sequence.questions %}
+            {% for question in sequence.questions %}
+              <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body bg-light" style="height: 100px;">
+                  <i class="fas fa-info-circle"></i> <i class="fas fa-exclamation-triangle col-md-6"></i> {{ question.title }}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="card-body bg-light">
+              Il n'y a pas encore de question pour cette séquence.
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% if Sequence.questions %}
+    <script>
+     
+     
+  var questionCount = 1;
+  var totalQuestions = 10 
+  document.getElementById("next-btn").addEventListener("click", function() {
+    if (questionCount < totalQuestions) {
+      questionCount++;
+      document.getElementById("headingOne").innerHTML = '<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Question ' + questionCount + ': {{ sequence.questions[questionCount-1].title }}</button><button class="btn btn-secondary float-right" id="next-btn"><i class="fa fa-arrow-right"></i> Next</button>';
+      document.getElementById("collapseOne").innerHTML = '<i class="fas fa-info-circle"></i> <i class="fas fa-exclamation-triangle"></i> {{ sequence.questions[questionCount-1].content }}';
+    }
+    document.getElementById("collapseOne").style.height = "auto";
+  });
+
+      
+    </script>
+     {% endif %}
+  </body>
+</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Séquence {{ sequence.id }} - {{ sequence.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body style="background-color: #bab7b7;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="http://localhost:5000">Afichage de la sequence </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    </nav>
+    <div class="container mt-5">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-light" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                 Identifiant: {{ sequence.id }}
+              </button>
+              <button class="btn btn-secondary float-right" id="next-btn">
+                <i class="fa fa-arrow-right"></i> Next
+              </button>
+            </h5>
+          </div>
+          <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body bg-light" style="height: 100px;">
+              <i class="fas fa-info-circle"></i> <i class="fas fa-exclamation-triangle col-md-6"></i> {{ sequence.questions[0].content }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      var questionCount = 1;
+      var totalQuestions = 10
+      document.getElementById("next-btn").addEventListener("click", function() {
+        if (questionCount < totalQuestions) {
+        questionCount++;
+        document.getElementById("headingOne").innerHTML = '<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Identifiant: ' + sequence.id + '</button><button class="btn btn-secondary float-right" id="next-btn"><i class="fa fa-arrow-right"></i> Next</button>';
+        document.getElementById("collapseOne").innerHTML = '<i class="fas fa-info-circle"></i> <i class="fas fa-exclamation-triangle col-md-6"></i> {{ sequence.questions[questionCount-1].content }}';
+        }
+        document.getElementById("collapseOne").style.height = "auto";
+      });
+    </script>
+ 
+  </body>
+</html>
+il y'as eu deux outils differents de collaborations personellement(celia)  l'interface utilisateur de Replit était 
+plus  intuitive et celle qui me convenait le mieux que celle de Gitlab, 
+ce qui m'a permis de me concentrer sur mon code que  la plateforme.
+Enfin de compte,j'ai utiliser  Replit  comme outil de collaborations, effectivement les taches ont etait répartit et
+j'atais  ameneé a travailler coté back et coté front de ce qui ma etait demandée .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+coté serveur
+SQLAlchemy pour la gestion de la base de données SQLite. 
+Le choix de SQLite 
+
+coté client 
+Concernant l'architecture du projet, j'ai suivi une approche orientée objet en utilisant 
+les modèles SQLAlchemy pour représenter les entités de la base de données, J'ai également créé un certain nombre de templates
+ HTML pour les différentes pages de l'application, Boostrap pour  l'aspect visuel et l'interaction utilisateur.
+
+En termes de fonctionnalités, 
+j'ai travaillé sur la création de séquences de questions en permettant à l'utilisateur de sélectionner un ensemble de questions
+prédéfinies et de les organiser dans une séquence. J'ai également implémenté une fonction de filtrage pour les questions en fonction des balises associées.
+
+1 Organisation # ca vas venir!   la video je la prepare toi tu mas dis tu fait le matin le montage !cest pour ca  nabuse pas par loublie 
+Organisation et répartition du travail au cours du temps et dans l’équipe incluant les outils de collaboration
+utilisés (environ une page).
+younes->on va changer ça 
+On a utilisé gitlab comme outil de collaboration 
+au début on a fait une liste de toutes le taches a faire dans l'optique d'implementer une nouvelle fonctionalitée chaque semaine pour chaque membre du groupe qui aura décidé au préalable la tache qu'il prends mais après quelque temps on a décidé de faire les taches par deux avec un membre (youness) qui fait le back et l'autre (Radja) le front comme ça on avait  
+youness -> de façon général travail sur le back, donc le code de la base de donnée, l'implemantation de toutes les routes/fonctionalitées coté serveur 
+surtout travaillé après le 6 février, avant ça j'aidait les autres je faisait du débug surtout en front,
+mi-février j'ai beaucoup codé en fonction de ce que Radja implementait, donc faisait les mêmes taches moi du coté serveur uniquement, comme ça on était sur la même page au niveau des attribut et on pouvait tester le code sans gros délai, donc pendant les 3 dernière semaines on a travaillé comme ça
+-> (celia)il y'as eu deux outils differents de collaborations, personellement(celia)  l'interface utilisateur de Replit était 
+plus  intuitive et celle qui me convenait le mieux,que celle de Gitlab.
+ce qui m'a permis de me concentrer sur mon code que  la plateforme.
+Enfin de compte,j'ai utiliser  Replit  comme outil de collaborations, effectivement apres le 6 fevrier  les taches ont etait répartit par les enseignants,j'atais  ameneé a travailler coté back et coté front de ce qui ma était demandée . 
+
+
+2 Cahier des charges
+Présentation succinte de ce qui a été fait/pas fait/buggué par rapport au cahier des charges initiales et
+éventuellement extensions (environ une page).
+
+
+
+(celia)
+Création de sequences:
+fait 
+-> rechercher des questions spécifiques en utilisant un filtre de sujet et afficher les résultats correspondants
+->La liste des questions sélectionnées est également affichée pour une dernière vérification.
+-> renseigner le titre et l'identifiant de la séquence qu'il souhaite créer
+->il peut voir toutes les séquences qu'il a créées jusqu'à présent avec le titre correspendant
+
+
+pas fait:
+-> affichage des identifiants correspendants aux questions de la sequence
+
+
+
+3 Architecture et choix techniques:
+1 à 2 page(s)
+— Architecture du projet
+— Choix technologiques avec leurs justifications (pourquoi ce choix, comment il a été fait, par qui...),
+(celia)
+coté serveur
+SQLAlchemy pour la gestion de la base de données SQLite. 
+Le choix de SQLite 
+
+coté client 
+Concernant l'architecture du projet, j'ai suivi une approche orientée objet en utilisant 
+les modèles SQLAlchemy pour représenter les entités de la base de données, J'ai également créé un certain nombre de templates
+ HTML pour les différentes pages de l'application, Boostrap pour  l'aspect visuel et l'interaction utilisateur.
+
+
+4 Détail
+Explication technique de deux ou trois points (1 à 3 pages max)
+Obligatoire Comment se fait la récupération des réponses et l’affichage en direct sur le poste enseignant,
+Au choix Un ou deux points techniques supplémentaires.
+
+
+5 Bilan
+Bilan et analyse rétrospective et difficultés rencontrées (environ une page). Ce bilan peut aborder à la fois
+les aspects organisationnels et techniques.
+
+
+(celia) Il est important de se rappeler que le travail en groupe nécessite
+de la collaboration,la communication pour atteindre les objectifs communs, ce qui n'as pas était fait correctement a mon avis,la répartition des tâches,
+la coordination c'est_a_dire qu'il est important de coordonner les éfforts de chaque membre pour garantir que le projet progresse dans la bonne direction.
+l'ors d'un projet de groupe  on peut recontrer des conflits avec certains, il est normal que des conflits surviennent lors de la réalisation d'un projet de groupe.
+Il est important de les aborder de manière constructive et de trouver des solutions qui conviennent à tous les membres du groupe.
+Le travail car il est important que chaque membre du groupe
+soit responsable de la qualité de son travail et l'assume.

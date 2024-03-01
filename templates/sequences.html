@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Liste des séquences</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  </head>
+  <body style="background-color: #bab7b7;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Liste des séquences</a>
+      </div>
+    </nav>
+   
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h4>Liste des questions</h4>
+        </div>
+        <div class="card-body">
+          {% if sequences %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Questions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sequence in sequences %}
+              <tr>
+                <td>{{ sequence.title }}</td>
+                <td>
+                  <ul>
+                    {% for question in sequence.questions %}
+                    <li>{{ question.title }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td>
+                  <form action="/delete_sequence/{{ sequence.id }}" method="post">
+                    <button type="submit" class="btn btn-outline-danger">Supprimer</button>
+                  </form>
+                  <form action="/view_sequence/{{ sequence.id }}" method="get">
+                    <input type="hidden" name="sequenceId" value="{{ sequence.id }}">
+                    <button type="submit" class="btn btn-outline-primary">Afficher</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>Aucune séquence n'a été créée pour le moment</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  </body>
+</html>

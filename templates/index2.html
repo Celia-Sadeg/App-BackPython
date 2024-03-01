@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Questionnaire</title>
+	<!-- Importer les fichiers Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>Questionnaire</h1>
+		<form id="question-form">
+			<div class="form-group">
+				<label for="question1">Question 1 : Quel est votre langage de programmation préféré ?</label>
+				<input type="text" class="form-control" id="question1" name="question1">
+			</div>
+			<div class="form-group">
+				<label for="question2">Question 2 : Quelle est votre fonction préférée de Python ?</label>
+				<input type="text" class="form-control" id="question2" name="question2">
+			</div>
+			<button type="submit" class="btn btn-primary">Envoyer</button>
+		</form>
+	</div>
+	<!-- Script pour envoyer les données au serveur Flask -->
+	<script>
+		$(document).ready(function() {
+			$("#question-form").submit(function(event) {
+				event.preventDefault();
+				$.post("/submit", $("#question-form").serialize(), function(response) {
+					console.log(response);
+					// Afficher le nuage de mots dans un élément de la page
+					$("#word-cloud").html(response);
+				});
+			});
+		});
+	</script>
+	<!-- Elément de la page pour afficher le nuage de mots généré par Flask -->
+	<div class="container">
+		<h2>Nuage de mots</h2>
+		<div id="word-cloud"></div>
+	</div>
+</body>
+</html>
